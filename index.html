@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>啓田株式会社 - ITソリューションとコンサルティング</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        }
+
+        :root {
+            --primary: #0056a6;
+            --secondary: #003366;
+            --accent: #00a0e9;
+            --light: #f5f9ff;
+            --dark: #333333;
+            --gray: #6c757d;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 头部和导航 */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 86, 166, 0.8)), url('/photo-1552664730-d307ca884978.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 120px;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* 关于我们 */
+        .about {
+            background: var(--light);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 服务 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            background: var(--primary);
+            color: white;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .service-content ul {
+            list-style: none;
+        }
+
+        .service-content li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .service-content li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* 业务范围 */
+        .business {
+            background: var(--light);
+        }
+
+        .business-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .business-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .business-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .business-header h3 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .business-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .business-content.active {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .business-content ul {
+            list-style: none;
+        }
+
+        .business-content li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .business-content li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* 公司信息 */
+        .company-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .info-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-item strong {
+            display: inline-block;
+            width: 120px;
+            color: var(--dark);
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">啓田<span>株式会社</span></a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#about">会社概要</a></li>
+                <li><a href="#services">サービス</a></li>
+                <li><a href="#business">事業内容</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>革新的なITソリューションで<br>ビジネスの未来を創造する</h1>
+            <p>啓田株式会社は、コンサルティングからシステム開発、インフラ構築まで、お客様のビジネスを総合的にサポートします。</p>
+            <a href="#contact" class="btn">お問い合わせ</a>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>会社概要</h2>
+                <p>私たちについて</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>信頼と革新のテクノロジーパートナー</h3>
+                    <p>啓田株式会社は、高度な技術力と豊富な経験を活かし、お客様のビジネス課題を解決するソリューションを提供しています。</p>
+                    <p>私たちは単なるシステム開発会社ではなく、お客様のビジネスパートナーとして、長期的な視点で価値を創造します。</p>
+                    <p>最新の技術トレンドを常にキャッチアップし、お客様に最適なソリューションを提案します。</p>
+                    <a href="#business" class="btn">事業内容を見る</a>
+                </div>
+                <div class="about-image">
+                    <img src="/photo-1552664730-d307ca884978.jpg" alt="オフィスイメージ">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务 -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>サービス</h2>
+                <p>私たちが提供するサービス</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>システム開発</h3>
+                        <ul>
+                            <li>Webアプリケーション開発</li>
+                            <li>ネイティブアプリ開発</li>
+                            <li>アルゴリズム設計・開発</li>
+                            <li>UI/UXデザイン</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>インフラ・セキュリティ</h3>
+                        <ul>
+                            <li>クラウドインフラ設計・構築</li>
+                            <li>ネットワーク設計・構築</li>
+                            <li>セキュリティ対策・監視</li>
+                            <li>システム保守・運用</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>コンサルティング</h3>
+                        <ul>
+                            <li>IT戦略コンサルティング</li>
+                            <li>プロジェクトマネジメント</li>
+                            <li>業務改善コンサルティング</li>
+                            <li>デジタルトランスフォーメーション</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 业务范围 -->
+    <section class="business" id="business">
+        <div class="container">
+            <div class="section-title">
+                <h2>事業内容</h2>
+                <p>業務範囲詳細</p>
+            </div>
+            <div class="business-list">
+                <div class="business-item">
+                    <div class="business-header">
+                        <h3>コンサルティング、PM/PMO</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="business-content">
+                        <ul>
+                            <li>経営戦略・IT戦略コンサルティング</li>
+                            <li>プロジェクトマネジメント/PMOサービス</li>
+                            <li>業務プロセス改善コンサルティング</li>
+                            <li>デジタルトランスフォーメーション支援</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="business-item">
+                    <div class="business-header">
+                        <h3>システム設計、開発構築、保守運用</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="business-content">
+                        <ul>
+                            <li>要件定義・システム設計</li>
+                            <li>開発・テスト・導入支援</li>
+                            <li>保守・運用・監視サービス</li>
+                            <li>性能改善・機能拡張</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="business-item">
+                    <div class="business-header">
+                        <h3>アプリケーション設計・開発</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="business-content">
+                        <ul>
+                            <li>Webアプリケーション設計・開発</li>
+                            <li>ネイティブアプリケーション設計・開発</li>
+                            <li>アルゴリズム設計・開発</li>
+                            <li>UI/UXデザイン</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="business-item">
+                    <div class="business-header">
+                        <h3>インフラ・セキュリティ設計・構築</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="business-content">
+                        <ul>
+                            <li>クラウド/オンプレミスインフラ設計</li>
+                            <li>ネットワーク設計・構築</li>
+                            <li>セキュリティ設計・対策実施</li>
+                            <li>システム監視・運用自動化</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="business-item">
+                    <div class="business-header">
+                        <h3>コンテンツ制作・事務関連</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="business-content">
+                        <ul>
+                            <li>動画コンテンツ制作</li>
+                            <li>音声コンテンツ制作</li>
+                            <li>画像コンテンツ制作</li>
+                            <li>事務関連作業支援</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 公司信息 -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>お問い合わせ</h2>
+                <p>会社情報とアクセス</p>
+            </div>
+            <div class="company-info">
+                <div class="info-card">
+                    <h3>会社情報</h3>
+                    <div class="info-item">
+                        <strong>会社名</strong> 啓田株式会社
+                    </div>
+                    <div class="info-item">
+                        <strong>代表者</strong> 陳 洲 
+                    </div>
+                    <div class="info-item">
+                        <strong>所在地</strong> 〒590-0077 大阪府堺市堺区中瓦町1-2-9-402
+                    </div>
+                    <div class="info-item">
+                        <strong>設立</strong> 2024年12月
+                    </div>
+                    <div class="info-item">
+                        <strong>資本金</strong> 5,000,000円
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>アクセス</h3>
+                    <div class="info-item">
+                        <strong>最寄駅</strong> JR堺市駅 徒歩8分
+                    </div>
+                    <div class="info-item">
+                        <strong>駐車場</strong> 近隣にコインパーキングあり
+                    </div>
+                    <div class="info-item">
+                        <strong>電話番号</strong> 08081449201
+                    </div>
+                    <div class="info-item">
+                        <strong>メール</strong> yhlong20@outlook.com
+                    </div>
+                    <div class="info-item">
+                        <strong>営業時間</strong> 9:00～18:00（土日祝除く）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>啓田株式会社</h3>
+                    <p>革新的なITソリューションでビジネスの未来を創造するパートナーとして、お客様の成功を支援します。</p>
+                </div>
+                <div class="footer-column">
+                    <h3>リンク</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">ホーム</a></li>
+                        <li><a href="#about">会社概要</a></li>
+                        <li><a href="#services">サービス</a></li>
+                        <li><a href="#business">事業内容</a></li>
+                        <li><a href="#contact">お問い合わせ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>サービス</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">コンサルティング</a></li>
+                        <li><a href="#">システム開発</a></li>
+                        <li><a href="#">インフラ構築</a></li>
+                        <li><a href="#">セキュリティ</a></li>
+                        <li><a href="#">コンテンツ制作</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>お問い合わせ</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 〒590-0077 大阪府堺市堺区中瓦町1-2-9-402</li>
+                        <li><i class="fas fa-phone"></i> 08081449201 </li>
+                        <li><i class="fas fa-envelope"></i> yhlong20@outlook.com </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 啓田株式会社 All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // 业务范围折叠面板
+        const businessHeaders = document.querySelectorAll('.business-header');
+        
+        businessHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+                
+                const icon = header.querySelector('i');
+                if (content.classList.contains('active')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // 导航链接点击后关闭移动菜单
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // 滚动时头部阴影效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
